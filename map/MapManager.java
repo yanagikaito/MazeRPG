@@ -2,6 +2,7 @@ package dungeon_rpg.map;
 
 import dungeon_rpg.GameStart;
 import dungeon_rpg.Position;
+
 import java.util.Random;
 import java.util.Scanner;
 

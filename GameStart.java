@@ -7,8 +7,8 @@ import dungeon_rpg.player.Player;
 
 
 public class GameStart {
-    Player player = new Player("勇者", 100, 0, 0);
-    Monster monster = new Monster("スライム", 200, 0);
+    Player player = new Player("勇者", 100, 1, 0, 0);
+    Monster monster = new Monster("スライム", 200, 1, 0);
     Battle battle = new Battle();
     Position current = new Position(1, 1);
 
@@ -47,13 +47,13 @@ public class GameStart {
         }
         if (player.getHp() > 0) {
             System.out.println("勇者は勝利した！");
-            player = new Player("勇者", 150, 0, 0);
-            monster = new Monster("スライム", 200, 0);
+            player = new Player("勇者", 150, 1, 0, 0);
+            monster = new Monster("スライム", 200, 1, 0);
         } else {
             System.out.println("勇者は負けた！");
             mapM.current = new Position(1, 1);
-            player = new Player("勇者", 150, 0, 0);
-            monster = new Monster("スライム", 200, 0);
+            player = new Player("勇者", 150, 1, 0, 0);
+            monster = new Monster("スライム", 200, 1, 0);
         }
     }
 }

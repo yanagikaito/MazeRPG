@@ -22,7 +22,8 @@ public class Battle {
         if (monster.setHp(monsterResult) < MIN) {
             monster.Hp0();
         }
-        System.out.println(player.getName() + "の攻撃！" + monster.getName() + "に" + attackDamage
+        player.putStatus();
+        player.put(player.getName() + "の攻撃！" + monster.getName() + "に" + attackDamage
                 + "のダメージ！" + " 残りの" + monster.getName() + "のHPは" + monster.setHp(monsterResult));
     }
 
@@ -34,7 +35,8 @@ public class Battle {
         if (player.setHp(playerResult) < MIN) {
             player.Hp0();
         }
-        System.out.println(monster.getName() + "の攻撃！" + player.getName() + "に" + attackDamage
+        monster.putStatus();
+        monster.put(monster.getName() + "の攻撃！" + player.getName() + "に" + attackDamage
                 + "のダメージ！" + " 残りの" + player.getName() + "のHPは" + player.setHp(playerResult));
     }
 
@@ -49,7 +51,8 @@ public class Battle {
             if (monster.setHp(monsterResult) < MIN) {
                 monster.Hp0();
             }
-            System.out.println(player.getName() + "の攻撃！会心の一撃！" + monster.getName() + "に" + criticalHit
+            player.putStatus();
+            player.put(player.getName() + "の攻撃！会心の一撃！" + monster.getName() + "に" + criticalHit
                     + "のダメージ！" + " 残りの" + monster.getName() + "のHPは " + monster.setHp(monsterResult));
         }
     }
@@ -65,7 +68,8 @@ public class Battle {
             if (player.setHp(playerResult) < MIN) {
                 player.Hp0();
             }
-            System.out.println(monster.getName() + "の攻撃！" + player.getName() + "に" + monsterCriticalHit
+            monster.putStatus();
+            monster.put(monster.getName() + "の攻撃！" + player.getName() + "に" + monsterCriticalHit
                     + "の大ダメージ！" + " 残りの" + player.getName() + "のHPは" + player.setHp(playerResult));
         }
     }
