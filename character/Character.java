@@ -1,7 +1,5 @@
 package dungeon_rpg.character;
 
-import dungeon_rpg.player.Player;
-
 import java.util.Random;
 
 public class Character {
@@ -43,6 +41,18 @@ public class Character {
 
     public void Hp0() {
         this.hp = MIN;
+    }
+
+    public void training() {
+
+        // レベル上昇0～9
+        int lvUp = random.nextInt(10);
+        int xp = random.nextInt(100) + 1; //　経験値
+        if (xp == 100) {
+            this.lv += lvUp;
+        } else {
+            put("残り" + (100 - xp) + "xp:でlvがあがる！");
+        }
     }
 
     public void putStatus() {
