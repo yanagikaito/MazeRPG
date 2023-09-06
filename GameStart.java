@@ -13,7 +13,7 @@ public class GameStart {
     Position current = new Position(1, 1);
 
     // MapManagerクラスをインスタンス化して引数this(GameStart)を渡します。
-    MapManager mapM = new MapManager(this);
+    public MapManager mapM = new MapManager(this);
 
 
     public GameStart() {
@@ -48,12 +48,12 @@ public class GameStart {
         if (player.getHp() > 0) {
             System.out.println("勇者は勝利した！");
             player.training();
-            player.put(player.getName() + "のlvは" + player.getLv() + " : 残りHP : " + player.getHp());
+            player.put(player.getName() + "のlvは" + player.getLv() + "lv上がりました！" + " : HPは : " + player.getLv() + "回復しました！");
+            player = new Player("勇者", player.getHp(), player.getLv(), 0, 0);
             monster = new Monster("スライム", 200, 1, 0);
         } else {
             System.out.println("勇者は負けた！");
             mapM.current = new Position(1, 1);
-            player = new Player("勇者", 150, 1, 0, 0);
             monster = new Monster("スライム", 200, 1, 0);
         }
     }

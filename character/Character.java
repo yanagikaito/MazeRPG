@@ -45,12 +45,12 @@ public class Character {
 
     public void training() {
 
-        // レベル上昇0～9
-        int lvUp = random.nextInt(10);
+        // レベル上昇1～9
+        int lvUp = random.nextInt(10) + 1;
         int xp = random.nextInt(100) + 1; //　経験値
         if (xp > lvUp) {
             this.lv += lvUp;
-            this.hp += lvUp;
+            this.hp += lv;
         } else {
             put("残り" + (100 - xp) + "xp:でlvがあがる！");
         }
