@@ -30,7 +30,7 @@ public class Battle {
     public void monsterAttackDamage(Player player, Monster monster) {
         int attackDamage = 0;
         int enemyRandomDamage = 5;
-        attackDamage = random.nextInt(enemyRandomDamage) + 11;
+        attackDamage = random.nextInt(enemyRandomDamage) + 8;
         int playerResult = player.getHp() - attackDamage < MIN ? MIN : player.getHp() - attackDamage;
         if (player.setHp(playerResult) < MIN) {
             player.Hp0();
