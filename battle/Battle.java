@@ -73,4 +73,21 @@ public class Battle {
                     + "の大ダメージ！" + " 残りの" + player.getName() + "のHPは" + player.setHp(playerResult));
         }
     }
+
+    public int training(Player player) {
+
+        // レベル上昇1～9
+        int lvUp = random.nextInt(10) + 1;
+        int xp = random.nextInt(100) + 1; //　経験値
+        if (xp > lvUp) {
+            int lvamount = lvUp;
+            int hpResult = player.getHp() + player.setLv(lvamount);
+            player.setHp(hpResult);
+            player.put(player.getName() + "のlvは : " + player.getLv() + "lv上がりました！" + " : HPは : " + lvamount + "回復しました！");
+            player.put(player.getName() + " : 残りHP : " + player.getHp() + "です！");
+        } else {
+            player.put(player.getName() + "のlvは" + player.getLv() + " : 上がりませんでした！" + " : 残り : HPは : " + player.getHp() + "です！");
+        }
+        return MIN;
+    }
 }

@@ -47,8 +47,7 @@ public class GameStart {
         }
         if (player.getHp() > 0) {
             System.out.println("勇者は勝利した！");
-            player.training();
-            player.put(player.getName() + "のlvは" + player.getLv() + "lv上がりました！" + " : HPは : " + player.getLv() + "回復しました！");
+            battle.training(player);
             player = new Player("勇者", player.getHp(), player.getLv(), 0, 0);
             monster = new Monster("スライム", 200, 1, 0);
         } else {
