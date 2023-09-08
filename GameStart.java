@@ -18,6 +18,7 @@ public class GameStart {
 
     public GameStart() {
         mapM.maze();
+        mapM.maze2();
     }
 
     public void battleLog() {
