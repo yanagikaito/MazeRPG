@@ -6,6 +6,8 @@ import dungeon_rpg.monster.Boss;
 import dungeon_rpg.monster.Monster;
 import dungeon_rpg.player.Player;
 
+import java.util.Random;
+
 
 public class GameStart {
     Player player = new Player("勇者", 100, 1, 0, 0);
@@ -56,6 +58,7 @@ public class GameStart {
         } else {
             System.out.println("勇者は負けた！");
             mapM.current = new Position(1, 1);
+            player = new Player("勇者", 100, 1, 0, 0);
             monster = new Monster("スライム", 200, 1, 0);
         }
     }
@@ -82,5 +85,15 @@ public class GameStart {
             player = new Player("勇者", 100, 1, 0, 0);
             monster = new Monster("スライム", 200, 1, 0);
         }
+    }
+
+    public void recovery() {
+        Random random = new Random();
+        int randomHealing = 5;
+        randomHealing = random.nextInt(randomHealing) + 11;
+        int healing = player.getHp() + randomHealing;
+        player.setHp(healing);
+        player.put(player.getName() + "のHPは" + randomHealing + "回復！");
+        player.put(player.getName() + "の現在のHPは" + player.getHp() + "です！");
     }
 }
