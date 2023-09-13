@@ -1,5 +1,6 @@
 package dungeon_rpg.battle;
 
+import dungeon_rpg.monster.Boss;
 import dungeon_rpg.monster.Monster;
 import dungeon_rpg.player.Player;
 
@@ -15,7 +16,7 @@ public class Battle {
 
     public void playerAttackDamage(Player player, Monster monster) {
         int attackDamage = 0;
-        int enemyRandomDamage = 1000;
+        int enemyRandomDamage = 200;
         attackDamage = random.nextInt(enemyRandomDamage) + 11;
         int monsterResult = monster.getHp() - attackDamage < MIN ? MIN : monster.getHp() - attackDamage;
         monster.setHp(monsterResult);
@@ -25,6 +26,20 @@ public class Battle {
         player.putStatus();
         player.put(player.getName() + "の攻撃！" + monster.getName() + "に" + attackDamage
                 + "のダメージ！" + " 残りの" + monster.getName() + "のHPは" + monster.setHp(monsterResult));
+    }
+
+    public void playerBossAttackDamage(Player player, Boss boss) {
+        int attackDamage = 0;
+        int enemyRandomDamage = 200;
+        attackDamage = random.nextInt(enemyRandomDamage) + 11;
+        int bossResult = boss.getHp() - attackDamage < MIN ? MIN : boss.getHp() - attackDamage;
+        boss.setHp(bossResult);
+        if (boss.setHp(bossResult) < MIN) {
+            boss.Hp0();
+        }
+        player.putStatus();
+        player.put(player.getName() + "の攻撃！" + boss.getName() + "に" + attackDamage
+                + "のダメージ！" + " 残りの" + boss.getName() + "のHPは" + boss.setHp(bossResult));
     }
 
     public void monsterAttackDamage(Player player, Monster monster) {
@@ -74,6 +89,19 @@ public class Battle {
         }
     }
 
+    public void bossAttackDamage(Player player, Boss boss) {
+        int attackDamage = 0;
+        int enemyRandomDamage = 500;
+        attackDamage = random.nextInt(enemyRandomDamage) + 8;
+        int playerResult = player.getHp() - attackDamage < MIN ? MIN : player.getHp() - attackDamage;
+        if (player.setHp(playerResult) < MIN) {
+            player.Hp0();
+        }
+        boss.putStatus();
+        boss.put(boss.getName() + "の攻撃！" + player.getName() + "に" + attackDamage
+                + "のダメージ！" + " 残りの" + player.getName() + "のHPは" + player.setHp(playerResult));
+    }
+
     public int training(Player player) {
 
         // レベル上昇1～9
@@ -86,7 +114,7 @@ public class Battle {
             player.put(player.getName() + "のlvは : " + player.getLv() + "lv上がりました！" + " : HPは : " + lvamount + "回復しました！");
             player.put(player.getName() + " : 残りHP : " + player.getHp() + "です！");
         } else {
-            player.put(player.getName() + "のlvは" + player.getLv() + " : 上がりませんでした！" + " : 残り : HPは : " + player.getHp() + "です！");
+            player.put(player.getName() + "のlvは : " + player.getLv() + " : lv上がりませんでした！" + " : 残り : HPは : " + player.getHp() + "です！");
         }
         return MIN;
     }

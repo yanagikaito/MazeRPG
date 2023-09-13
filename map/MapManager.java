@@ -33,6 +33,9 @@ public class MapManager {
                     } else if (mapTile.map[col][row] == 1) {
                         System.out.print("■");
 
+                    } else if (mapTile.map[col][row] == 4) {
+                        System.out.print("B");
+
                     } else {
                         System.out.print(".");
                     }
@@ -108,6 +111,11 @@ public class MapManager {
                 System.out.println("勇者はモンスターに遭遇した！");
                 gs.battleLog();
             }
+        }
+        if (mapTile.map[next.getCol()][next.getRow()] == 4) {
+            current = next;
+            System.out.println("勇者は魔王と決戦！");
+            gs.bossBattlelog();
         }
     }
 

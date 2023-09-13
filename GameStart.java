@@ -2,6 +2,7 @@ package dungeon_rpg;
 
 import dungeon_rpg.battle.Battle;
 import dungeon_rpg.map.MapManager;
+import dungeon_rpg.monster.Boss;
 import dungeon_rpg.monster.Monster;
 import dungeon_rpg.player.Player;
 
@@ -9,6 +10,7 @@ import dungeon_rpg.player.Player;
 public class GameStart {
     Player player = new Player("勇者", 100, 1, 0, 0);
     Monster monster = new Monster("スライム", 200, 1, 0);
+    Boss boss = new Boss("魔王", 300, 0, 20);
     Battle battle = new Battle();
     Position current = new Position(1, 1);
 
@@ -54,6 +56,30 @@ public class GameStart {
         } else {
             System.out.println("勇者は負けた！");
             mapM.current = new Position(1, 1);
+            monster = new Monster("スライム", 200, 1, 0);
+        }
+    }
+
+    public void bossBattlelog() {
+        for (int i = 0; boss.getHp() > 0; i++) {
+            battle.playerBossAttackDamage(player, boss);
+            if (boss.getHp() <= 0) {
+                boss.Hp0();
+                break;
+            }
+            battle.bossAttackDamage(player, boss);
+            if (player.getHp() <= 0) {
+                player.Hp0();
+                break;
+            }
+        }
+        if (player.getHp() > 0) {
+            System.out.println("勇者は魔王に勝利しました！");
+            battle.training(player);
+        } else {
+            System.out.println("勇者は魔王に負けました！");
+            mapM.current = new Position(1, 1);
+            player = new Player("勇者", 100, 1, 0, 0);
             monster = new Monster("スライム", 200, 1, 0);
         }
     }
