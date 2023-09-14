@@ -6,13 +6,14 @@ import dungeon_rpg.monster.Boss;
 import dungeon_rpg.monster.Monster;
 import dungeon_rpg.player.Player;
 
+
 import java.util.Random;
 
 
 public class GameStart {
-    Player player = new Player("勇者", 100, 1, 0, 0);
-    Monster monster = new Monster("スライム", 200, 1, 0);
-    Boss boss = new Boss("魔王", 300, 0, 20);
+    Player player = new Player("勇者", 100, 1, 0, 0, 0);
+    Monster monster = new Monster("スライム", 200, 1, 0, 0);
+    Boss boss = new Boss("魔王", 300, 0, 20, 0);
     Battle battle = new Battle();
     Position current = new Position(1, 1);
 
@@ -53,13 +54,13 @@ public class GameStart {
         if (player.getHp() > 0) {
             System.out.println("勇者は勝利した！");
             battle.training(player);
-            player = new Player("勇者", player.getHp(), player.getLv(), 0, 0);
-            monster = new Monster("スライム", 200, 1, 0);
+            player = new Player("勇者", player.getHp(), player.getLv(), 0, 0, player.getGold());
+            monster = new Monster("スライム", 200, 1, 0, 0);
         } else {
             System.out.println("勇者は負けた！");
             mapM.current = new Position(1, 1);
-            player = new Player("勇者", 100, 1, 0, 0);
-            monster = new Monster("スライム", 200, 1, 0);
+            player = new Player("勇者", 100, 1, 0, 0, 0);
+            monster = new Monster("スライム", 200, 1, 0, 0);
         }
     }
 
@@ -82,18 +83,28 @@ public class GameStart {
         } else {
             System.out.println("勇者は魔王に負けました！");
             mapM.current = new Position(1, 1);
-            player = new Player("勇者", 100, 1, 0, 0);
-            monster = new Monster("スライム", 200, 1, 0);
+            player = new Player("勇者", 100, 1, 0, 0, 0);
+            monster = new Monster("スライム", 200, 1, 0, 0);
         }
     }
 
     public void recovery() {
         Random random = new Random();
         int randomHealing = 5;
-        randomHealing = random.nextInt(randomHealing) + 11;
-        int healing = player.getHp() + randomHealing;
-        player.setHp(healing);
-        player.put(player.getName() + "のHPは" + randomHealing + "回復！");
-        player.put(player.getName() + "の現在のHPは" + player.getHp() + "です！");
+        int recoveryMoney = 20;
+        if (recoveryMoney < player.getGold()) {
+            int remainingMoney = player.getGold() - recoveryMoney;
+            if (player.getGold() < 0) {
+                player.Gold0();
+                player.put("所持金が0になりました！");
+            }
+            randomHealing = random.nextInt(randomHealing) + 11;
+            int healing = player.getHp() + randomHealing;
+            player.setHp(healing);
+            player.setGold(remainingMoney);
+            player.put(player.getName() + "のHPは" + randomHealing + "回復！");
+            player.put(player.getName() + "の現在のHPは" + player.getHp() + "です！");
+            player.put("残り所持金" + player.getGold() + "です！");
+        }
     }
 }

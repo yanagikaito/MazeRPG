@@ -1,5 +1,6 @@
 package dungeon_rpg.character;
 
+
 import java.util.Random;
 
 public class Character {
@@ -7,12 +8,13 @@ public class Character {
     private String name;
     private Integer hp;
     private Integer lv;
+    private Integer gold;
     private Random random = new Random();
 
-    public Character(String name, Integer hp, Integer lv) {
+    public Character(String name, Integer hp, Integer lv, Integer gold) {
         this.name = name;
         this.lv = lv;
-        if (hp < MIN) {
+        if (hp < MIN || gold < MIN) {
             try {
                 throw new IllegalAccessException();
             } catch (IllegalAccessException e) {
@@ -20,6 +22,7 @@ public class Character {
             }
         }
         this.hp = hp;
+        this.gold = gold;
     }
 
     public String getName() {
@@ -34,6 +37,14 @@ public class Character {
         return this.lv;
     }
 
+    public Integer getGold() {
+        return this.gold;
+    }
+
+    public Integer setGold(Integer gold) {
+        return this.gold = gold;
+    }
+
     public Integer setLv(Integer lv) {
         return this.lv = lv;
     }
@@ -44,6 +55,10 @@ public class Character {
 
     public void Hp0() {
         this.hp = MIN;
+    }
+
+    public void Gold0() {
+        this.gold = MIN;
     }
 
     public void putStatus() {

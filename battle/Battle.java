@@ -107,16 +107,22 @@ public class Battle {
         // レベル上昇1～9
         int lvUp = random.nextInt(10) + 1;
         int xp = random.nextInt(100) + 1; //　経験値
+        int randomGold = random.nextInt(10) + 1; // 通貨
         if (xp > lvUp) {
             int lvamount = player.getLv() + lvUp;
             int hpResult = player.getHp() + lvUp;
+            int goldAmount = player.getGold() + randomGold;
             player.setLv(lvamount);
             player.setHp(hpResult);
+            player.setGold(goldAmount);
             player.put("経験値 : " + xp + " : 入手 " + player.getName() + "のlvは : " + " lv : " + lvUp + "上がりました！" + " : HP : " + lvUp + " 回復しました！");
+            player.put("ゴールド : " + randomGold + " G入手！ ");
             player.put(player.getName() + " : 残りHP : " + player.getHp() + "です！");
+            player.put(player.getName() + " : 所持金 : " + player.getGold() + "Gです!");
             player.put(player.getName() + " : 現在のlv : " + player.setLv(lvamount) + "です！");
         } else {
             player.put(player.getName() + "のlvは : " + player.getLv() + " : lv上がりませんでした！" + " : 残り : HPは : " + player.getHp() + "です！");
+            player.put("所持金は入手できませんでした！");
         }
     }
 }
