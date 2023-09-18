@@ -8,13 +8,14 @@ public class Character {
     private String name;
     private Integer hp;
     private Integer lv;
+    private Integer mp;
     private Integer gold;
     private Random random = new Random();
 
-    public Character(String name, Integer hp, Integer lv, Integer gold) {
+    public Character(String name, Integer hp, Integer lv, Integer mp, Integer gold) {
         this.name = name;
         this.lv = lv;
-        if (hp < MIN || gold < MIN) {
+        if (hp < MIN || gold < MIN || mp < MIN) {
             try {
                 throw new IllegalAccessException();
             } catch (IllegalAccessException e) {
@@ -22,6 +23,7 @@ public class Character {
             }
         }
         this.hp = hp;
+        this.mp = mp;
         this.gold = gold;
     }
 
@@ -51,6 +53,14 @@ public class Character {
 
     public Integer setHp(Integer hp) {
         return this.hp = hp;
+    }
+
+    public Integer getMp() {
+        return mp;
+    }
+
+    public Integer setMp(Integer mp) {
+        return this.mp = mp;
     }
 
     public void Hp0() {

@@ -10,7 +10,7 @@ public class Monster extends Character {
     private int gold;
 
     public Monster(String name, int hp, int lv, int attackDamage, int gold) {
-        super(name, hp, lv, gold);
+        super(name, hp, lv, gold, attackDamage);
         this.name = name;
         this.hp = hp;
         this.lv = lv;

@@ -10,7 +10,7 @@ public class Boss extends Character {
     private int attackDamage;
 
     public Boss(String name, int hp, int attackDamage, int lv, int gold) {
-        super(name, hp, lv, gold);
+        super(name, hp, lv, gold, attackDamage);
         this.name = name;
         this.hp = hp;
         this.gold = gold;

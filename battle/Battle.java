@@ -1,9 +1,12 @@
 package dungeon_rpg.battle;
 
+import dungeon_rpg.magic.*;
 import dungeon_rpg.monster.Boss;
 import dungeon_rpg.monster.Monster;
 import dungeon_rpg.player.Player;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Battle {
@@ -101,6 +104,58 @@ public class Battle {
         boss.put(boss.getName() + "の攻撃！" + player.getName() + "に" + attackDamage
                 + "のダメージ！" + " 残りの" + player.getName() + "のHPは" + player.setHp(playerResult));
     }
+
+    public void magicAttack(MagicType magicType, Player player, Monster monster) {
+        final Map<MagicType, Magic> magics = new HashMap<>();
+        Fire fire = new Fire(player);
+        Thunder thunder = new Thunder(player);
+        Blizzard blizzard = new Blizzard(player);
+        magics.put(MagicType.FIRE, fire);
+        magics.put(MagicType.THUNDER, thunder);
+        magics.put(MagicType.BLIZZARD, blizzard);
+        Magic usingMagic = magics.get(magicType);
+        showMagicName(usingMagic);
+        consumeMagicPoint(usingMagic, player);
+        consumeTechnicalPoint(usingMagic);
+        magicDamage(usingMagic, monster, player);
+    }
+
+    public void showMagicName(Magic magic) {
+        String name = magic.name();
+        System.out.println(" 魔法 :" + name + "を発動！");
+    }
+
+    // 魔法力を消費する
+    public void consumeMagicPoint(Magic magic, Player player) {
+        int costMagicPoint = magic.costMagicPoint();
+        int magicResult = player.getMp() - costMagicPoint < MIN ? MIN : player.getMp() - costMagicPoint;
+        player.setMp(magicResult);
+        if (player.setMp(magicResult) < MIN) {
+            player.Hp0();
+        }
+        System.out.println(player.getName() + "はMP : " + costMagicPoint + "を消費した！");
+        System.out.println("残りの : " + player.getName() + "のMPは : " + player.setMp(magicResult) + "です！");
+    }
+
+    // テクニカルポイントを消費する
+    public void consumeTechnicalPoint(Magic magic) {
+        int costTechnicalPoint = magic.costTechnicalPoint();
+        System.out.println(costTechnicalPoint);
+    }
+
+    // ダメージ計算をする
+    public void magicDamage(Magic magic, Monster monster, Player player) {
+        int attackPower = magic.attackPower();
+        int monsterResult = monster.getHp() - attackPower < MIN ? MIN : monster.getHp() - attackPower;
+        monster.setHp(monsterResult);
+        if (monster.setHp(monsterResult) < MIN) {
+            monster.Hp0();
+        }
+        player.put(player.getName() + "の魔法攻撃！" + monster.getName() + "に" + attackPower
+                + "のダメージ！" + " 残りの" + monster.getName() + "のHPは" + monster.setHp(monsterResult));
+        player.putStatus();
+    }
+
 
     public void training(Player player) {
 
