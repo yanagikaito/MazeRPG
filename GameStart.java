@@ -71,6 +71,9 @@ public class GameStart {
     public void bossBattlelog() {
         for (int i = 0; boss.getHp() > 0; i++) {
             battle.playerBossAttackDamage(player, boss);
+            battle.bossMagicAttack(MagicType.FIRE, player, boss);
+            battle.bossMagicAttack(MagicType.BLIZZARD, player, boss);
+            battle.bossMagicAttack(MagicType.THUNDER, player, boss);
             if (boss.getHp() <= 0) {
                 boss.Hp0();
                 break;
@@ -87,7 +90,7 @@ public class GameStart {
         } else {
             System.out.println("勇者は魔王に負けました！");
             mapM.current = new Position(1, 1);
-            player = new Player("勇者", 100, 1, 0, 0, 0, 0, 0);
+            player = new Player("勇者", 100, 1, 50, 0, 0, 0, 0);
             monster = new Monster("スライム", 200, 1, 0, 0);
         }
     }

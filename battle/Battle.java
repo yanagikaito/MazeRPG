@@ -107,16 +107,15 @@ public class Battle {
 
     public void magicAttack(MagicType magicType, Player player, Monster monster) {
         final Map<MagicType, Magic> magics = new HashMap<>();
-        Fire fire = new Fire(player);
-        Thunder thunder = new Thunder(player);
-        Blizzard blizzard = new Blizzard(player);
+        Fire fire = new Fire(player, 50);
+        Thunder thunder = new Thunder(player, player.getMp());
+        Blizzard blizzard = new Blizzard(player, player.getMp());
         magics.put(MagicType.FIRE, fire);
         magics.put(MagicType.THUNDER, thunder);
         magics.put(MagicType.BLIZZARD, blizzard);
         Magic usingMagic = magics.get(magicType);
         showMagicName(usingMagic);
         consumeMagicPoint(usingMagic, player);
-        consumeTechnicalPoint(usingMagic);
         magicDamage(usingMagic, monster, player);
     }
 
@@ -128,19 +127,13 @@ public class Battle {
     // 魔法力を消費する
     public void consumeMagicPoint(Magic magic, Player player) {
         int costMagicPoint = magic.costMagicPoint();
-        int magicResult = player.getMp() - costMagicPoint < MIN ? MIN : player.getMp() - costMagicPoint;
+        int magicResult = magic.getPlayerMp() - costMagicPoint < MIN ? MIN : magic.getPlayerMp() - costMagicPoint;
         player.setMp(magicResult);
         if (player.setMp(magicResult) < MIN) {
-            player.Hp0();
+            player.Mp0();
         }
-        System.out.println(player.getName() + "はMP : " + costMagicPoint + "を消費した！");
-        System.out.println("残りの : " + player.getName() + "のMPは : " + player.setMp(magicResult) + "です！");
-    }
-
-    // テクニカルポイントを消費する
-    public void consumeTechnicalPoint(Magic magic) {
-        int costTechnicalPoint = magic.costTechnicalPoint();
-        System.out.println(costTechnicalPoint);
+        player.put(player.getName() + "はMP : " + costMagicPoint + "を消費した！");
+        player.put("残りの : " + player.getName() + "のMPは : " + player.setMp(magicResult) + "です！");
     }
 
     // ダメージ計算をする
@@ -153,6 +146,32 @@ public class Battle {
         }
         player.put(player.getName() + "の魔法攻撃！" + monster.getName() + "に" + attackPower
                 + "のダメージ！" + " 残りの" + monster.getName() + "のHPは" + monster.setHp(monsterResult));
+        player.putStatus();
+    }
+
+    public void bossMagicAttack(MagicType magicType, Player player, Boss boss) {
+        final Map<MagicType, Magic> magics = new HashMap<>();
+        Fire fire = new Fire(player, 50);
+        Thunder thunder = new Thunder(player, player.getMp());
+        Blizzard blizzard = new Blizzard(player, player.getMp());
+        magics.put(MagicType.FIRE, fire);
+        magics.put(MagicType.THUNDER, thunder);
+        magics.put(MagicType.BLIZZARD, blizzard);
+        Magic usingMagic = magics.get(magicType);
+        showMagicName(usingMagic);
+        consumeMagicPoint(usingMagic, player);
+        bossMagicDamage(usingMagic, boss, player);
+    }
+
+    public void bossMagicDamage(Magic magic, Boss boss, Player player) {
+        int attackPower = magic.attackPower();
+        int monsterResult = boss.getHp() - attackPower < MIN ? MIN : boss.getHp() - attackPower;
+        boss.setHp(monsterResult);
+        if (boss.setHp(monsterResult) < MIN) {
+            boss.Hp0();
+        }
+        player.put(player.getName() + "の魔法攻撃！" + boss.getName() + "に" + attackPower
+                + "のダメージ！" + " 残りの" + boss.getName() + "のHPは" + boss.setHp(monsterResult));
         player.putStatus();
     }
 

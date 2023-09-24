@@ -56,7 +56,7 @@ public class Character {
     }
 
     public Integer getMp() {
-        return mp;
+        return this.mp;
     }
 
     public Integer setMp(Integer mp) {
@@ -65,6 +65,10 @@ public class Character {
 
     public void Hp0() {
         this.hp = MIN;
+    }
+
+    public void Mp0() {
+        this.mp = MIN;
     }
 
     public void Gold0() {
