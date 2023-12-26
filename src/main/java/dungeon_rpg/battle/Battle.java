@@ -19,7 +19,7 @@ public class Battle {
 
     public void playerAttackDamage(Player player, Slime slime) {
         int attackDamage = 0;
-        int enemyRandomDamage = 200;
+        int enemyRandomDamage = 100;
         attackDamage = random.nextInt(enemyRandomDamage) + 11;
         int monsterResult = slime.getHp() - attackDamage < MIN ? MIN : slime.getHp() - attackDamage;
         slime.setHp(monsterResult);

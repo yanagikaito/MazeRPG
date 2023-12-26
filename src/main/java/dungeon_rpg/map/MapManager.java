@@ -11,7 +11,7 @@ public class MapManager {
     public Map mapTile = new Map();
     public Position current = new Position(1, 1);
     public Position current2 = new Position(6, 1);
-    public Position goal = new Position(6, 1);
+    public Position goal = new Position(18, 1);
     public Position goal2 = new Position(1, 0);
 
     public MapManager(GameStart gs) {
