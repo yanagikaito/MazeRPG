@@ -2,7 +2,7 @@ package dungeon_rpg.battle;
 
 import dungeon_rpg.magic.*;
 import dungeon_rpg.monster.Boss;
-import dungeon_rpg.monster.Monster;
+import dungeon_rpg.monster.Slime;
 import dungeon_rpg.player.Player;
 
 import java.util.HashMap;
@@ -17,18 +17,18 @@ public class Battle {
 
     }
 
-    public void playerAttackDamage(Player player, Monster monster) {
+    public void playerAttackDamage(Player player, Slime slime) {
         int attackDamage = 0;
         int enemyRandomDamage = 200;
         attackDamage = random.nextInt(enemyRandomDamage) + 11;
-        int monsterResult = monster.getHp() - attackDamage < MIN ? MIN : monster.getHp() - attackDamage;
-        monster.setHp(monsterResult);
-        if (monster.setHp(monsterResult) < MIN) {
-            monster.Hp0();
+        int monsterResult = slime.getHp() - attackDamage < MIN ? MIN : slime.getHp() - attackDamage;
+        slime.setHp(monsterResult);
+        if (slime.setHp(monsterResult) < MIN) {
+            slime.Hp0();
         }
         player.putStatus();
-        player.put(player.getName() + "の攻撃！" + monster.getName() + "に" + attackDamage
-                + "のダメージ！" + " 残りの" + monster.getName() + "のHPは" + monster.setHp(monsterResult));
+        player.put(player.getName() + "の攻撃！" + slime.getName() + "に" + attackDamage
+                + "のダメージ！" + " 残りの" + slime.getName() + "のHPは" + slime.setHp(monsterResult));
     }
 
     public void playerBossAttackDamage(Player player, Boss boss) {
@@ -45,7 +45,7 @@ public class Battle {
                 + "のダメージ！" + " 残りの" + boss.getName() + "のHPは" + boss.setHp(bossResult));
     }
 
-    public void monsterAttackDamage(Player player, Monster monster) {
+    public void monsterAttackDamage(Player player, Slime slime) {
         int attackDamage = 0;
         int enemyRandomDamage = 5;
         attackDamage = random.nextInt(enemyRandomDamage) + 8;
@@ -53,29 +53,29 @@ public class Battle {
         if (player.setHp(playerResult) < MIN) {
             player.Hp0();
         }
-        monster.putStatus();
-        monster.put(monster.getName() + "の攻撃！" + player.getName() + "に" + attackDamage
+        slime.putStatus();
+        slime.put(slime.getName() + "の攻撃！" + player.getName() + "に" + attackDamage
                 + "のダメージ！" + " 残りの" + player.getName() + "のHPは" + player.setHp(playerResult));
     }
 
-    public void playerCriticalHit(Player player, Monster monster) {
+    public void playerCriticalHit(Player player, Slime slime) {
         int criticalHit = 0;
         int enemyRandomDamage = 10;
         int randomPlayerCriticalHitProbability = 5;
         if ((random.nextInt(randomPlayerCriticalHitProbability) + 1) == 1) {
             criticalHit = random.nextInt(enemyRandomDamage) + 11;
             criticalHit *= 2;
-            int monsterResult = monster.getHp() - criticalHit < MIN ? MIN : monster.getHp() - criticalHit;
-            if (monster.setHp(monsterResult) < MIN) {
-                monster.Hp0();
+            int monsterResult = slime.getHp() - criticalHit < MIN ? MIN : slime.getHp() - criticalHit;
+            if (slime.setHp(monsterResult) < MIN) {
+                slime.Hp0();
             }
             player.putStatus();
-            player.put(player.getName() + "の攻撃！会心の一撃！" + monster.getName() + "に" + criticalHit
-                    + "のダメージ！" + " 残りの" + monster.getName() + "のHPは " + monster.setHp(monsterResult));
+            player.put(player.getName() + "の攻撃！会心の一撃！" + slime.getName() + "に" + criticalHit
+                    + "のダメージ！" + " 残りの" + slime.getName() + "のHPは " + slime.setHp(monsterResult));
         }
     }
 
-    public void monsterLargeDamage(Player player, Monster monster) {
+    public void monsterLargeDamage(Player player, Slime slime) {
         int monsterCriticalHit = 0;
         int enemyRandomDamage = 10;
         int randomMonsterLargeDamageProbability = 10;
@@ -86,8 +86,8 @@ public class Battle {
             if (player.setHp(playerResult) < MIN) {
                 player.Hp0();
             }
-            monster.putStatus();
-            monster.put(monster.getName() + "の攻撃！" + player.getName() + "に" + monsterCriticalHit
+            slime.putStatus();
+            slime.put(slime.getName() + "の攻撃！" + player.getName() + "に" + monsterCriticalHit
                     + "の大ダメージ！" + " 残りの" + player.getName() + "のHPは" + player.setHp(playerResult));
         }
     }
@@ -105,7 +105,7 @@ public class Battle {
                 + "のダメージ！" + " 残りの" + player.getName() + "のHPは" + player.setHp(playerResult));
     }
 
-    public void magicAttack(MagicType magicType, Player player, Monster monster) {
+    public void magicAttack(MagicType magicType, Player player, Slime slime) {
         final Map<MagicType, Magic> magics = new HashMap<>();
         Fire fire = new Fire(player, 50);
         Thunder thunder = new Thunder(player, player.getMp());
@@ -116,7 +116,7 @@ public class Battle {
         Magic usingMagic = magics.get(magicType);
         showMagicName(usingMagic);
         consumeMagicPoint(usingMagic, player);
-        magicDamage(usingMagic, monster, player);
+        magicDamage(usingMagic, slime, player);
     }
 
     public void showMagicName(Magic magic) {
@@ -137,15 +137,15 @@ public class Battle {
     }
 
     // ダメージ計算をする
-    public void magicDamage(Magic magic, Monster monster, Player player) {
+    public void magicDamage(Magic magic, Slime slime, Player player) {
         int attackPower = magic.attackPower();
-        int monsterResult = monster.getHp() - attackPower < MIN ? MIN : monster.getHp() - attackPower;
-        monster.setHp(monsterResult);
-        if (monster.setHp(monsterResult) < MIN) {
-            monster.Hp0();
+        int monsterResult = slime.getHp() - attackPower < MIN ? MIN : slime.getHp() - attackPower;
+        slime.setHp(monsterResult);
+        if (slime.setHp(monsterResult) < MIN) {
+            slime.Hp0();
         }
-        player.put(player.getName() + "の魔法攻撃！" + monster.getName() + "に" + attackPower
-                + "のダメージ！" + " 残りの" + monster.getName() + "のHPは" + monster.setHp(monsterResult));
+        player.put(player.getName() + "の魔法攻撃！" + slime.getName() + "に" + attackPower
+                + "のダメージ！" + " 残りの" + slime.getName() + "のHPは" + slime.setHp(monsterResult));
         player.putStatus();
     }
 
